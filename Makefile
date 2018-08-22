@@ -2,14 +2,14 @@ CXX = g++
 
 SRCDIR=./
 CCFILES += \
-		$(SRCDIR)/mydef.c \
-		$(SRCDIR)/mypeopledetect.c \
+		$(SRCDIR)/base_hog_svm.c \
+		$(SRCDIR)/det_main.c \
 		$(SRCDIR)/vec.c \
 
 HFILES += \
-		$(SRCDIR)/mypeopledetect.h \
+		$(SRCDIR)/det_main.h \
 		$(SRCDIR)/vec.h \
-		$(SRCDIR)/mydef.h \
+		$(SRCDIR)/base_hog_svm.h \
 
 
 LD_FLAGS         = -lm 
@@ -20,7 +20,7 @@ OBJS             += $(patsubst %.c,%.c.o, $(CCFILES))
 
 CFLAGS           =  -g -O0 -m64 -Wall
 
-EXECUTABLE       = iHog
+EXECUTABLE       = iHogSvm
 
 INCLUDE_FLAGS    = -I$(SRCDIR) -I$(COMMDIR) -I$(NSDIR) -I$(AGCDIR) -I$(VADDIR)
 #INCLUDE_FLAGS    = -I$(SRCDIR) -I$(COMMDIR) -I$(AGCDIR) -I$(VADDIR)
