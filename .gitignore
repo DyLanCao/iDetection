@@ -7,6 +7,10 @@
  
 # c.o class files
 *.swp
+*.swo
+*.swn
+*.o
+*.fuse*
  
 # Generated files
 */bin/
