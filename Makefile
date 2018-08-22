@@ -20,7 +20,7 @@ OBJS             += $(patsubst %.c,%.c.o, $(CCFILES))
 
 CFLAGS           =  -g -O0 -m64 -Wall
 
-EXECUTABLE       = iHogSvm
+EXECUTABLE       = iHog
 
 INCLUDE_FLAGS    = -I$(SRCDIR) -I$(COMMDIR) -I$(NSDIR) -I$(AGCDIR) -I$(VADDIR)
 #INCLUDE_FLAGS    = -I$(SRCDIR) -I$(COMMDIR) -I$(AGCDIR) -I$(VADDIR)

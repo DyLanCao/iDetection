@@ -1,4 +1,5 @@
 #include "det_main.h"
+#include <unistd.h>
 
 myMat *readPGM(const char *filename)
 {
@@ -81,6 +82,39 @@ myMat *readPGM(const char *filename)
     return img;
 }
 
+void argv_open_read(int argc, char** argv)
+{
+        int opt = 0;
+
+        while ((opt = getopt(argc, argv, "h:s:")) != -1) {
+                switch(opt) {
+                        case 'h':
+                                g_hog_mode = optarg;
+                                printf("g_hog_mode =%s \n", g_hog_mode);
+                                break;
+                        case 's':
+                                g_svm_mode = optarg;
+                                printf(" g_svm_mode value=%s \n", g_svm_mode);
+                                break;
+                        case '?':
+                                /* Case when user enters the command as
+                                 *      * $ ./cmd_exe -i
+                                 *           */
+                                if (optopt == 'h') {
+                                        printf("\nMissing mandatory input option");
+                                        /* Case when user enters the command as
+                                         *      * # ./cmd_exe -o
+                                         *           */
+                                } else if (optopt == 's') {
+                                        printf("\nMissing mandatory output option");
+                                } else {
+                                        printf("\nInvalid option received");
+                                }
+                                break;
+                }
+        }
+
+}
 
 int main(int argc, char** argv)
 {
@@ -92,6 +126,8 @@ int main(int argc, char** argv)
 	rect_ *found=NULL, *found_filtered=NULL;
 	size_ w,p;
 	img = readPGM(argv[1]);
+
+    argv_open_read(argc, argv);
 
 	strncpy(str,&(argv[1])[5],13);
 	hogalc(&hog);        

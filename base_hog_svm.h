@@ -59,6 +59,9 @@ typedef unsigned short ushort;
 #define WT int
 #define AT short
 
+extern char *g_hog_mode;
+extern char *g_svm_mode;
+
 typedef struct myRect
 {
 	int x,y,width,height;

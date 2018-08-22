@@ -15,6 +15,11 @@ static const float atan2_p7 = -0.04432655554792128f*(float)(180/myCV_PI);
 #define SHRT_MAX		32767
 #define USHRT_MAX		0xffff
 
+char *g_hog_mode = NULL;
+char *g_svm_mode = NULL;
+char hog_bo[] = "1"; //boyi 的 hog 
+char base_hog[] = "2"; //基础的hog
+
 void createMat(myMat* img, size_* sz, int _channels, int _type, void* refdata)
 {
 	size_t elesz = (_type == myCV_8U) ? 1 : 4;
@@ -252,8 +257,21 @@ void cartToPolar( myMat* src1, myMat* src2, myMat* dst1, myMat* dst2, bool angle
             int len = mymin(total - j, blockSize);
 			const float *x = (const float*)ptrs[0], *y = (const float*)ptrs[1];
             float *mag = (float*)ptrs[2], *angle = (float*)ptrs[3];
-            myMagnitude_32f( x, y, mag, len );
-            myFastAtan2_32f( y, x, angle, len, angleInDegrees );
+            if(!strcmp(g_hog_mode,hog_bo))
+            {
+                printf(" test ok=%s \n", g_hog_mode);
+            }
+            else if(!strcmp(g_hog_mode,base_hog))
+            {
+                myMagnitude_32f( x, y, mag, len );
+                myFastAtan2_32f( y, x, angle, len, angleInDegrees );
+            }
+            else
+            {
+                myMagnitude_32f( x, y, mag, len );
+                myFastAtan2_32f( y, x, angle, len, angleInDegrees );
+            }
+
 			
             ptrs[0] += len*esz1;
             ptrs[1] += len*esz1;
