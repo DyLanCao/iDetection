@@ -1,22 +1,41 @@
+CXX = g++
 
-CXXFLAGS:= $(shell pkg-config --cflags opencv)
+SRCDIR=./
+CCFILES += \
+		$(SRCDIR)/mydef.c \
+		$(SRCDIR)/mypeopledetect.c \
+		$(SRCDIR)/vec.c \
 
-LDLIBS:= $(shell pkg-config --libs opencv)
-
-
-
-
-#test: main.o direc.o
-test: train_HOG.o 
-	g++ -o test train_HOG.o $(CXXFLAGS) $(LDLIBS)
-
-train_HOG.o: train_HOG.cpp 
-	g++ -c train_HOG.cpp   $(CXXFLAGS) 
+HFILES += \
+		$(SRCDIR)/mypeopledetect.h \
+		$(SRCDIR)/vec.h \
+		$(SRCDIR)/mydef.h \
 
 
-#direc.o: direc.cpp direc.h
-#	g++ -c direc.cpp  $(CXXFLAGS)
+LD_FLAGS         = -lm 
+
+LD_LIBS          = 
+
+OBJS             += $(patsubst %.c,%.c.o, $(CCFILES))
+
+CFLAGS           =  -g -O0 -m64 -Wall
+
+EXECUTABLE       = iHog
+
+INCLUDE_FLAGS    = -I$(SRCDIR) -I$(COMMDIR) -I$(NSDIR) -I$(AGCDIR) -I$(VADDIR)
+#INCLUDE_FLAGS    = -I$(SRCDIR) -I$(COMMDIR) -I$(AGCDIR) -I$(VADDIR)
+
+## Each subdirectory must supply rules for building sources it contributes
+all: $(OBJS) $(CCFILES)
+	$(CXX) -o $(EXECUTABLE) $(CFLAGS) $(OBJS) $(LD_FLAGS) 
 
 
-clean: 
-	rm -f *.o
+$(OBJS): $(CCFILES) $(HFILES)
+	$(CXX) $(CFLAGS) $(INCLUDE_FLAGS) -o $@ -c $*
+
+
+.phony: clean
+
+
+clean:
+	@rm -f $(OBJS) $(EXECUTABLE)
