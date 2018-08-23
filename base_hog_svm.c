@@ -257,12 +257,14 @@ void cartToPolar( myMat* src1, myMat* src2, myMat* dst1, myMat* dst2, bool angle
             int len = mymin(total - j, blockSize);
 			const float *x = (const float*)ptrs[0], *y = (const float*)ptrs[1];
             float *mag = (float*)ptrs[2], *angle = (float*)ptrs[3];
+       
             if(!strcmp(g_hog_mode,hog_bo))
             {
                 printf(" test ok=%s \n", g_hog_mode);
             }
             else if(!strcmp(g_hog_mode,base_hog))
             {
+                //printf(" test g_hog_mode =%s \n", g_hog_mode);
                 myMagnitude_32f( x, y, mag, len );
                 myFastAtan2_32f( y, x, angle, len, angleInDegrees );
             }
@@ -271,7 +273,10 @@ void cartToPolar( myMat* src1, myMat* src2, myMat* dst1, myMat* dst2, bool angle
                 myMagnitude_32f( x, y, mag, len );
                 myFastAtan2_32f( y, x, angle, len, angleInDegrees );
             }
-
+            /*
+            myMagnitude_32f( x, y, mag, len );
+            myFastAtan2_32f( y, x, angle, len, angleInDegrees );
+            */
 			
             ptrs[0] += len*esz1;
             ptrs[1] += len*esz1;

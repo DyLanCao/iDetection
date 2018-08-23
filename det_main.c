@@ -127,7 +127,7 @@ int main(int argc, char** argv)
 	size_ w,p;
 	img = readPGM(argv[1]);
 
-    argv_open_read(argc, argv);
+        argv_open_read(argc, argv);
 
 	strncpy(str,&(argv[1])[5],13);
 	hogalc(&hog);        
