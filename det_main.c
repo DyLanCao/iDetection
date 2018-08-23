@@ -90,11 +90,11 @@ void argv_open_read(int argc, char** argv)
                 switch(opt) {
                         case 'h':
                                 g_hog_mode = optarg;
-                                printf("g_hog_mode =%s \n", g_hog_mode);
+                                //printf("g_hog_mode =%s \n", g_hog_mode);
                                 break;
                         case 's':
                                 g_svm_mode = optarg;
-                                printf(" g_svm_mode value=%s \n", g_svm_mode);
+                                //printf(" g_svm_mode value=%s \n", g_svm_mode);
                                 break;
                         case '?':
                                 /* Case when user enters the command as
@@ -118,6 +118,7 @@ void argv_open_read(int argc, char** argv)
 
 int main(int argc, char** argv)
 {
+	int ret = 0;
 	myMat *img;
 	char str[13];
 	int i;
@@ -140,16 +141,23 @@ int main(int argc, char** argv)
 	t=clock()-t;
 	//printf("\nDetection Time= %fsecs\n", ((float)t)/CLOCKS_PER_SEC); 	
 	if(sbcount(found))
+	{
+		ret = 0;
 		for (i=0; i<sbcount(found); i++)
-			printf("......... %s x=%d y=%d w=%d h=%d\n",str,found[i].x,found[i].y, found[i].width,found[i].height);
+			printf("%s x=%d y=%d w=%d h=%d\n",str,found[i].x,found[i].y, found[i].width,found[i].height);
+	}
 	else
+	{
+		ret = -1;
 		//printf("%s x=%d y=%d w=%d h=%d\n",str,0,0,0,0);
+	}
+	
 	sbfree(found);
 	sbfree(found_filtered);
 	free(img->data);
 	free(img);
 
-	return 0;
+	return ret;
 }
 
 
