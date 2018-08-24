@@ -1,6 +1,7 @@
 #include <math.h>
 #include <stddef.h>
 #include "base_hog_svm.h"
+#include "boyi_hog.h"
 
 #define myCV_Assert(expr) if(!expr) exit(MYDEF_ERROR)
 
@@ -256,11 +257,14 @@ void cartToPolar( myMat* src1, myMat* src2, myMat* dst1, myMat* dst2, bool angle
         {
             int len = mymin(total - j, blockSize);
 			const float *x = (const float*)ptrs[0], *y = (const float*)ptrs[1];
+
             float *mag = (float*)ptrs[2], *angle = (float*)ptrs[3];
        
             if(!strcmp(g_hog_mode,hog_bo))
             {
-                printf(" test ok=%s \n", g_hog_mode);
+                BoMagnitude_32f( x, y, mag, len );
+                BoFastAtan2_32f( y, x, angle, len, angleInDegrees );
+                printf("*mag:=%d  *angle:%d \n", *mag,*angle);
             }
             else if(!strcmp(g_hog_mode,base_hog))
             {

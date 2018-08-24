@@ -2,11 +2,13 @@ CXX = g++
 
 SRCDIR=./
 CCFILES += \
+		$(SRCDIR)/boyi_hog.c \
 		$(SRCDIR)/base_hog_svm.c \
 		$(SRCDIR)/det_main.c \
 		$(SRCDIR)/vec.c \
 
 HFILES += \
+		$(SRCDIR)/boyi_hog.h \
 		$(SRCDIR)/det_main.h \
 		$(SRCDIR)/vec.h \
 		$(SRCDIR)/base_hog_svm.h \
